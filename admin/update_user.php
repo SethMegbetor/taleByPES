@@ -2,9 +2,14 @@
 require_once dirname(__DIR__).'/Core/init.php';
 
 $fetch_data = new Fetch($connection);
+$link = new Functions();
+
+if(empty($_SESSION['admin'])) {
+  $link->redirect('../index.php');
+}
 
 if(empty($_GET['id'])){
-    header('location: users.php');
+    $link->redirect('users.php');
 }
 
 $departments = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'departments');

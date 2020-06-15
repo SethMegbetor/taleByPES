@@ -3,6 +3,10 @@ require_once dirname(__DIR__).'/Core/init.php';
 
 $fetch_data = new Fetch($connection);
 
+if(empty($_SESSION['admin'])) {
+  $link->redirect('../index.php');
+}
+
 $departments = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'departments');
 $user_cat = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'user_categories');
 $account_status = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'account_status');

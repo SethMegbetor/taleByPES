@@ -1,12 +1,17 @@
 <?php 
 require_once dirname(__DIR__).'/Core/init.php';
 
+if(empty($_SESSION['admin'])) {
+  $link->redirect('../index.php');
+}
+
 $fetch_data = new Fetch($connection);
 
 $departments = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'departments');
-$programme = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'programmes');
-$levels = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'levels');
-$campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses');
+$user_categories = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'user_categories');
+$account_status = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'account_status');
+
+$selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name, users.email, users.created_at, users.account_status, users.department_id, users.category_id, departments.name AS department, user_categories.name AS category, account_status.name AS status', 'users', 'JOIN departments ON departments.id = users.department_id JOIN user_categories ON user_categories.id = users.category_id JOIN account_status ON account_status.id = users.account_status', 'users.id', $_SESSION['admin'] );
 
 ?>
 <!DOCTYPE html>
@@ -38,17 +43,19 @@ $campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses')
                     <div class="form-group row mb-4">
                       <label for="full_name" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Full Name</label>
                       <div class="col-sm-12 col-md-7">
-                        <input type="text" class="form-control" id="full_name" data-minlength="4"  name="full_name" data-error="Bruh, the fullname field is required" required>
+                        <input type="text" class="form-control" id="full_name" data-minlength="4"  name="full_name" value="<?php echo $selected_user->full_name; ?>" data-error="Bruh, the fullname field is required" required>
                         <div class="help-block with-errors text-danger"></div>
                       </div>
                     </div>
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Department</label>
                       <div class="col-sm-12 col-md-7">
-                        <select name="department_id" id="department_id" data-error="Bruh, select an item from the option" class="form-control" required>
-                            <option value="" class="selected">Select Department</option>
+                        <select name="department_id" id="department_id" data-error="Bruh, select an item from the option" class="form-control" disabled required>
+                            <option value="<?php echo $selected_user->department_id; ?>" class="selected"><?php echo $selected_user->department; ?></option>
                             <?php foreach($departments as $dept): ?>
+                              <?php if($dept->id != $selected_user->department_id): ?>
                                 <option value="<?php echo $dept->id; ?>"><?php echo $dept->name; ?></option>
+                              <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
                         <div class="help-block with-errors text-danger"></div>
@@ -57,10 +64,12 @@ $campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses')
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">User Category</label>
                       <div class="col-sm-12 col-md-7">
-                        <select name="department_id" id="department_id" data-error="Bruh, select an item from the option" class="form-control" required>
-                            <option value="" class="selected">Select Department</option>
-                            <?php foreach($departments as $dept): ?>
-                                <option value="<?php echo $dept->id; ?>"><?php echo $dept->name; ?></option>
+                        <select name="department_id" id="department_id" data-error="Bruh, select an item from the option" class="form-control" disabled required>
+                            <option value="<?php echo $selected_user->category_id; ?>" class="selected"><?php echo $selected_user->category; ?></option>
+                            <?php foreach($user_categories as $cat): ?>
+                              <?php if($cat->id != $selected_user->category_id): ?>
+                                <option value="<?php echo $cat->id; ?>"><?php echo $cat->name; ?></option>
+                              <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
                         <div class="help-block with-errors text-danger"></div>
@@ -69,17 +78,19 @@ $campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses')
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Email Address</label>
                       <div class="col-sm-12 col-md-7">
-                        <input type="email" name="email" id="email" class="form-control" data-error="Bruh, that email address is invalid" required>
+                        <input type="email" name="email" id="email" class="form-control" value="<?php echo $selected_user->email; ?>" data-error="Bruh, that email address is invalid" required>
                         <div class="help-block with-errors text-danger"></div>
                       </div>
                     </div>
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Account Status</label>
                       <div class="col-sm-12 col-md-7">
-                        <select name="campus_id" id="campus_id" data-error="Bruh, select an item from the option" class="form-control" required>
-                            <option value="" class="selected">Select Campus</option>
-                            <?php foreach($campuses as $campus): ?>
-                                <option value="<?php echo $campus->id; ?>"><?php echo $campus->name; ?></option>
+                        <select name="campus_id" id="campus_id" data-error="Bruh, select an item from the option" class="form-control" disabled required>
+                            <option value="<?php echo $selected_user->account_status; ?>" class="selected"><?php echo $selected_user->status; ?></option>
+                            <?php foreach($account_status as $status): ?>
+                              <?php if($status->id != $selected_user->account_status): ?>
+                                <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option>
+                              <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
                         <div class="help-block with-errors text-danger"></div>
@@ -109,7 +120,7 @@ $campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses')
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                       <div class="col-sm-12 col-md-7">
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                       </div>
                     </div>
                   </form>

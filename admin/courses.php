@@ -1,6 +1,10 @@
 <?php 
 require_once dirname(__DIR__).'/Core/init.php';
 
+if(empty($_SESSION['admin'])) {
+  $link->redirect('../index.php');
+}
+
 $fetch_data = new Fetch($connection);
 $date = new DateFormat($connection);
 

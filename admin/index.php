@@ -2,6 +2,10 @@
 require_once dirname(__DIR__).'/Core/init.php';
 $data = new Fetch($connection);
 
+if(empty($_SESSION['admin'])) {
+  $link->redirect('../index.php');
+}
+
 $users_total = $data->getTotal('users');
 $students_total = $data->getTotal('students');
 $programmes_total = $data->getTotal('programmes');

@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="../assets/css/app.min.css">
 <!-- Template CSS -->
 <link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/bundles/pretty-checkbox/pretty-checkbox.min.css">
 <link rel="stylesheet" href="../assets/css/components.css">
 <!-- Custom style CSS -->
 <link rel="stylesheet" href="../assets/css/custom.css">

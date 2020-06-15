@@ -20,6 +20,32 @@ $departments_total = $data->getTotal('departments');
   <?php include 'includes/meta.php'; ?>
   <title>Tales - Admin Dashboard</title>
   <?php include 'includes/links.php'; ?>
+  <script type="text/javascript" src="../assets/js/google-charts.js"></script>
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Users', 'Students', 'Programmes', 'Departments', 'Courses', 'Campuses'],
+          <?php
+
+           echo "['". $users_total ."', '". $students_total ."', '". $programmes_total ."', '". $departments_total ."', '". $courses_total ."', '". $campuses_total ."',],";
+
+          ?>
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Graph View of Dashboard Items'
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('dashboard_items'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
 </head>
 
 <body>
@@ -135,6 +161,12 @@ $departments_total = $data->getTotal('departments');
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <br><br>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div id="dashboard_items" style="width: 990px; height: 400px;"></div>
               </div>
             </div>
         </section>

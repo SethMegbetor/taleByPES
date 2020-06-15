@@ -39,7 +39,8 @@ $selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name
                   <h4>Update My Account</h4>
                 </div>
                 <div class="card-body p-0">
-                  <form data-toggle="validator" role="form" action="../Submits/create_student.php" method="POST">
+                  <form data-toggle="validator" role="form" action="../Submits/update_admin_account.php" method="POST">
+                  <input type="hidden" name="id" value="<?php echo $_SESSION['admin']; ?>" required>
                     <div class="form-group row mb-4">
                       <label for="full_name" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Full Name</label>
                       <div class="col-sm-12 col-md-7">
@@ -52,11 +53,11 @@ $selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name
                       <div class="col-sm-12 col-md-7">
                         <select name="department_id" id="department_id" data-error="Bruh, select an item from the option" class="form-control" disabled required>
                             <option value="<?php echo $selected_user->department_id; ?>" class="selected"><?php echo $selected_user->department; ?></option>
-                            <?php foreach($departments as $dept): ?>
+                            <!-- <?php foreach($departments as $dept): ?>
                               <?php if($dept->id != $selected_user->department_id): ?>
                                 <option value="<?php echo $dept->id; ?>"><?php echo $dept->name; ?></option>
                               <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?php endforeach; ?> -->
                         </select>
                         <div class="help-block with-errors text-danger"></div>
                       </div>
@@ -64,13 +65,13 @@ $selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">User Category</label>
                       <div class="col-sm-12 col-md-7">
-                        <select name="department_id" id="department_id" data-error="Bruh, select an item from the option" class="form-control" disabled required>
+                        <select name="category_id" id="category_id" data-error="Bruh, select an item from the option" class="form-control" disabled required>
                             <option value="<?php echo $selected_user->category_id; ?>" class="selected"><?php echo $selected_user->category; ?></option>
-                            <?php foreach($user_categories as $cat): ?>
+                            <!-- <?php foreach($user_categories as $cat): ?>
                               <?php if($cat->id != $selected_user->category_id): ?>
                                 <option value="<?php echo $cat->id; ?>"><?php echo $cat->name; ?></option>
                               <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?php endforeach; ?> -->
                         </select>
                         <div class="help-block with-errors text-danger"></div>
                       </div>
@@ -85,13 +86,13 @@ $selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Account Status</label>
                       <div class="col-sm-12 col-md-7">
-                        <select name="campus_id" id="campus_id" data-error="Bruh, select an item from the option" class="form-control" disabled required>
+                        <select name="account_status" id="account_status" data-error="Bruh, select an item from the option" class="form-control" disabled required>
                             <option value="<?php echo $selected_user->account_status; ?>" class="selected"><?php echo $selected_user->status; ?></option>
-                            <?php foreach($account_status as $status): ?>
+                            <!-- <?php foreach($account_status as $status): ?>
                               <?php if($status->id != $selected_user->account_status): ?>
                                 <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option>
                               <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?php endforeach; ?> -->
                         </select>
                         <div class="help-block with-errors text-danger"></div>
                       </div>

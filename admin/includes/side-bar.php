@@ -18,7 +18,7 @@
         <li class="<?php echo $active_page->activePage('students.php'); ?>"><a class="nav-link" href="students.php"><i data-feather="layers"></i><span>Students</span></a></li>
         <li class="<?php echo $active_page->activePage('programmes.php'); ?>"><a class="nav-link" href="programmes.php"><i data-feather="briefcase"></i><span>Programmes</span></a></li>
         <li class="<?php echo $active_page->activePage('courses.php'); ?>"><a class="nav-link" href="courses.php"><i data-feather="book"></i><span>Courses</span></a></li>
-        <li><a class="nav-link" href="#"><i data-feather="edit"></i><span>Evaluation</span></a></li>
+        <li class="<?php echo $active_page->activePage('evaluate.php'); ?>"><a class="nav-link" href="evaluate.php"><i data-feather="edit"></i><span>Faculty Evaluation</span></a></li>
         <li class="<?php echo $active_page->activePage('profile.php'); ?>"><a class="nav-link" href="profile.php"><i data-feather="user"></i><span>Profile</span></a></li>
         <li><a class="nav-link" href="../Submits/user_logout.php"><i data-feather="log-out"></i><span>Logout</span></a></li>
         </ul>

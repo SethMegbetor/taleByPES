@@ -8,8 +8,8 @@ if(empty($_SESSION['admin'])) {
 $data = new Fetch($connection);
 $date = new DateFormat($connection);
 
-$users = $data->getItemsWithLimitOffset('SELECT users.id, users.full_name, users.email, users.created_at, users.account_status, users.department_id, users.category_id, departments.name AS department, user_categories.name AS category, account_status.name AS status',
-'users', 'JOIN departments ON departments.id = users.department_id JOIN user_categories ON user_categories.id = users.category_id JOIN account_status ON account_status.id = users.account_status',
+$users = $data->getItemsWithLimitOffset('SELECT users.id, users.full_name, users.email, users.created_at, users.account_status, users.department_id, users.category_id, departments.name AS department, user_categories.name AS category, account_status.name AS status, users.grade_id, grades.name AS grade',
+'users', 'JOIN departments ON departments.id = users.department_id JOIN user_categories ON user_categories.id = users.category_id JOIN account_status ON account_status.id = users.account_status JOIN grades ON grades.id = users.grade_id',
 10, 0);
 
 ?>
@@ -49,6 +49,7 @@ $users = $data->getItemsWithLimitOffset('SELECT users.id, users.full_name, users
                             <th>Department</th>
                             <th>Category</th>
                             <th>Email</th>
+                            <th>Grade</th>
                             <th>Account Status</th>
                             <th>Date Created</th>
                             <th>Action</th>
@@ -61,6 +62,7 @@ $users = $data->getItemsWithLimitOffset('SELECT users.id, users.full_name, users
                               </td>
                               <td><?php echo $user->category; ?></td>
                               <td><?php echo $user->email; ?></td>
+                              <td><?php echo $user->grade; ?></td>
                               <td>
                                 <?php if($user->account_status == 1){ ?>
                                   <div class="badge badge-info"><?php echo $user->status; ?></div>

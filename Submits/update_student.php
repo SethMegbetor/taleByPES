@@ -11,6 +11,7 @@ if(Inputs::submitType()){
   $programme_id = intval(Inputs::assignValue('programme_id'));
   $email = Inputs::assignValue('email');
   $campus_id = intval(Inputs::assignValue('campus_id'));
+  $grade_id = intval(Inputs::assignValue('grade_id'));
   $address = Inputs::assignValue('address');
   $updated_at = date('Y-m-d H:i:s');
 
@@ -23,6 +24,7 @@ if(Inputs::submitType()){
     'programme_id' => $programme_id,
     'email' => $email,
     'campus_id' => $campus_id,
+    'grade_id' => $grade_id,
     'address' => $address,
     'updated_at' => $updated_at
   ));

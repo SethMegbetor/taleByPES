@@ -27,7 +27,7 @@ if(($page > $pages) && ($page > 1)) {
 
 $offset = ($page - 1) * $rows;
 
-$students = $data->getItemsWithLimitOffset('SELECT students.id, students.full_name, students.index_no, students.department_id, students.level_id, students.programme_id, students.email, students.campus_id, students.address, departments.name AS department, levels.name AS level, programmes.name AS  programme, campuses.name AS campus', 'students', 'JOIN departments ON departments.id =  students.department_id JOIN levels ON levels.id =  students.level_id JOIN programmes ON programmes.id = students.programme_id JOIN campuses ON campuses.id = students.campus_id', $rows, $offset);
+$students = $data->getItemsWithLimitOffset('SELECT students.id, students.full_name, students.index_no, students.department_id, students.level_id, students.programme_id, students.email, students.campus_id, students.address, departments.name AS department, levels.name AS level, programmes.name AS  programme, campuses.name AS campus, students.grade_id, grades.name AS grade', 'students', 'JOIN departments ON departments.id =  students.department_id JOIN levels ON levels.id =  students.level_id JOIN programmes ON programmes.id = students.programme_id JOIN campuses ON campuses.id = students.campus_id JOIN grades ON grades.id = students.grade_id', $rows, $offset);
 
 //getting previous page value
 if(($page - 1) >= 1) {
@@ -82,6 +82,7 @@ if(($page + 1) <= $pages) {
                             <th>Level</th>
                             <th>Programme</th>
                             <th>Campus</th>
+                            <th>Grade</th>
                             <th>Email</th>
                             <th>Date Created</th>
                             <th>Action</th>
@@ -96,6 +97,7 @@ if(($page + 1) <= $pages) {
                               <td><?php echo $student->level; ?></td>
                               <td><?php echo $student->programme; ?></td>
                               <td><?php echo $student->campus; ?></td>
+                              <td><?php echo $student->grade; ?></td>
                               <td><?php echo $student->email; ?></td>
                               <td><?php echo $date->timeAgo($student->created_at); ?></td>
                               <td>

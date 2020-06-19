@@ -11,6 +11,7 @@ $departments = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'departm
 $programme = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'programmes');
 $levels = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'levels');
 $campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses');
+$grades = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'grades');
 
 ?>
 <!DOCTYPE html>
@@ -103,6 +104,18 @@ $campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses')
                             <option value="" class="selected">Select Campus</option>
                             <?php foreach($campuses as $campus): ?>
                                 <option value="<?php echo $campus->id; ?>"><?php echo $campus->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="help-block with-errors text-danger"></div>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Grade</label>
+                      <div class="col-sm-12 col-md-7">
+                        <select name="grade_id" id="grade_id" data-error="Bruh, select an item from the option" class="form-control" required>
+                            <option value="" class="selected">Select Grade</option>
+                            <?php foreach($grades as $grade): ?>
+                                <option value="<?php echo $grade->id; ?>"><?php echo $grade->name; ?></option>
                             <?php endforeach; ?>
                         </select>
                         <div class="help-block with-errors text-danger"></div>

@@ -10,6 +10,7 @@ if(empty($_SESSION['admin'])) {
 $departments = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'departments');
 $user_cat = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'user_categories');
 $account_status = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'account_status');
+$grades = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'grades');
 
 ?>
 <!DOCTYPE html>
@@ -83,6 +84,18 @@ $account_status = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'acco
                             <option value="" class="selected">Select Account Status</option>
                             <?php foreach($account_status as $status): ?>
                                 <option value="<?php echo $status->id; ?>"><?php echo $status->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="help-block with-errors text-danger"></div>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Grade</label>
+                      <div class="col-sm-12 col-md-7">
+                        <select name="grade_id" id="grade_id" data-error="Bruh, select an item from the option" class="form-control" required>
+                            <option value="" class="selected">Select Grade</option>
+                            <?php foreach($grades as $grade): ?>
+                                <option value="<?php echo $grade->id; ?>"><?php echo $grade->name; ?></option>
                             <?php endforeach; ?>
                         </select>
                         <div class="help-block with-errors text-danger"></div>

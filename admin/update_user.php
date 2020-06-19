@@ -15,7 +15,8 @@ if(empty($_GET['id'])){
 $departments = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'departments');
 $user_cat = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'user_categories');
 $account_status = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'account_status');
-$selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name, users.email, users.created_at, users.account_status, users.department_id, users.category_id, departments.name AS department, user_categories.name AS category, account_status.name AS status', 'users', 'JOIN departments ON departments.id = users.department_id JOIN user_categories ON user_categories.id = users.category_id JOIN account_status ON account_status.id = users.account_status', 'users.id', $_GET['id']);
+$grades = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'grades');
+$selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name, users.email, users.created_at, users.account_status, users.department_id, users.category_id, departments.name AS department, user_categories.name AS category, account_status.name AS status, users.grade_id, grades.name AS grade', 'users', 'JOIN departments ON departments.id = users.department_id JOIN user_categories ON user_categories.id = users.category_id JOIN account_status ON account_status.id = users.account_status JOIN grades ON grades.id = users.grade_id', 'users.id', $_GET['id']);
 
 ?>
 <!DOCTYPE html>
@@ -74,6 +75,20 @@ $selected_user = $fetch_data->getSigleJoinItem('SELECT users.id, users.full_name
                             <?php foreach($user_cat as $cat): ?>
                                 <?php if(($cat->id) != ($selected_user->category_id)): ?>
                                     <option value="<?php echo $cat->id; ?>"><?php echo $cat->name; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="help-block with-errors text-danger"></div>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Grade</label>
+                      <div class="col-sm-12 col-md-7">
+                        <select name="grade_id" id="grade_id" data-error="Bruh, select an item from the option" class="form-control" required>
+                            <option value="<?php echo $selected_user->grade_id; ?>" class="selected"><?php echo $selected_user->grade; ?></option>
+                            <?php foreach($grades as $grade): ?>
+                                <?php if(($grade->id) != ($selected_user->grade_id)): ?>
+                                    <option value="<?php echo $grade->id; ?>"><?php echo $grade->name; ?></option>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>

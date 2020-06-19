@@ -9,6 +9,7 @@ if(Inputs::submitType()) {
     $category_id = intval(Inputs::assignValue('category_id'));
     $email = Inputs::assignValue('email');
     $status_id = intval(Inputs::assignValue('status_id'));
+    $grade_id = intval(Inputs::assignValue('grade_id'));
     $updated_at = date('Y-m-d H:i:s');
 
     //update values
@@ -16,6 +17,7 @@ if(Inputs::submitType()) {
         'full_name' => $full_name,
         'department_id' => $department_id,
         'category_id' => $category_id,
+        'grade_id' => $grade_id,
         'email' => $email,
         'account_status' => $status_id,
         'updated_at' => $updated_at

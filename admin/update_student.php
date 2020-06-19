@@ -15,8 +15,9 @@ $departments = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'departm
 $programme = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'programmes');
 $levels = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'levels');
 $campuses = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'campuses');
+$grades = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'grades');
 
-$selected_student = $fetch_data->getSigleJoinItem('SELECT students.id, students.full_name, students.index_no, students.department_id, students.level_id, students.programme_id, students.email, students.campus_id, students.address, departments.name AS department, levels.name AS level, programmes.name AS  programme, campuses.name AS campus', 'students', 'JOIN departments ON departments.id =  students.department_id JOIN levels ON levels.id =  students.level_id JOIN programmes ON programmes.id = students.programme_id JOIN campuses ON campuses.id = students.campus_id', 'students.id', $_GET['id']);
+$selected_student = $fetch_data->getSigleJoinItem('SELECT students.id, students.full_name, students.index_no, students.department_id, students.level_id, students.programme_id, students.email, students.campus_id, students.address, departments.name AS department, levels.name AS level, programmes.name AS  programme, campuses.name AS campus, students.grade_id, grades.name AS grade', 'students', 'JOIN departments ON departments.id =  students.department_id JOIN levels ON levels.id =  students.level_id JOIN programmes ON programmes.id = students.programme_id JOIN campuses ON campuses.id = students.campus_id JOIN grades ON grades.id = students.grade_id', 'students.id', $_GET['id']);
 
 ?>
 <!DOCTYPE html>
@@ -117,6 +118,20 @@ $selected_student = $fetch_data->getSigleJoinItem('SELECT students.id, students.
                             <?php foreach($campuses as $campus): ?>
                               <?php if(($campus->id) != $selected_student->campus_id): ?>
                                 <option value="<?php echo $campus->id; ?>"><?php echo $campus->name; ?></option>
+                              <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="help-block with-errors text-danger"></div>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Grade</label>
+                      <div class="col-sm-12 col-md-7">
+                        <select name="grade_id" id="grade_id" data-error="Bruh, select an item from the option" class="form-control" required>
+                            <option value="<?php echo $selected_student->grade_id; ?>" class="selected"><?php echo $selected_student->grade; ?></option>
+                            <?php foreach($grades as $grade): ?>
+                              <?php if(($grade->id) != $selected_student->grade_id): ?>
+                                <option value="<?php echo $grade->id; ?>"><?php echo $grade->name; ?></option>
                               <?php endif; ?>
                             <?php endforeach; ?>
                         </select>

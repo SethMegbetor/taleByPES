@@ -73,7 +73,7 @@ if(($page + 1) <= $pages) {
                 </div>
                 <div class="card-body p-0">
                   <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="students" class="display">
                       <tbody>
                         <tr>
                             <th class="pl-4">Name</th>

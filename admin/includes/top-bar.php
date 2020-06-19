@@ -57,11 +57,11 @@
         </div>
         </li>
         <li class="dropdown"><a href="#" data-toggle="dropdown"
-            class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="../assets/img/user.png"
+            class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="../assets/img/admin.png"
             class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
         <div class="dropdown-menu dropdown-menu-right pullDown">
             <div class="dropdown-title">Hello <?php echo $_SESSION['admin_name']; ?></div>
-            <a href="profile.html" class="dropdown-item has-icon"> <i class="far
+            <a href="profile.php" class="dropdown-item has-icon"> <i class="far
                                     fa-user"></i> Profile
             </a>
             <div class="dropdown-divider"></div>

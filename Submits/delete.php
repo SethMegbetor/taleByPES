@@ -59,3 +59,18 @@ if(isset($_GET['student_id'])) {
     exit();
 }
 
+
+
+//delete course material
+if(isset($_GET['file_id'])) {
+    $id = $_GET['file_id'];
+
+    $database->delete('course_materials', array('id', '=', $id));
+
+    //success message
+    $_SESSION['success'] = 'Course material deleted successfully';
+    //redirect
+    header('location: ../faculty/course_materials.php');
+    exit();
+}
+

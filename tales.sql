@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2020 at 10:26 PM
+-- Generation Time: Jun 21, 2020 at 12:08 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -296,7 +296,36 @@ INSERT INTO `students` (`id`, `full_name`, `index_no`, `department_id`, `level_i
 (6, 'Clifford Lovoson', 'HT4789505', 2, 1, 4, 'cliford@tales.com', 3, 4, 'P.O. BOX HP 1128', '$2y$10$15ux.j.HrneXnR7uYG0WgesARQBCQT78kmXg16OMeLgRhQUR/6VuK', '2020-06-20 02:29:47', NULL),
 (7, 'Clifford Lovoson', 'HT4789505', 2, 2, 4, 'cliford@tales.com', 3, 2, 'P.O. BOX HP 1128', '$2y$10$BCXSYA.ab1KM8dnrgMCiHOG2IvnL0ThwKGflr/FJT8VjfIuM4UzHy', '2020-06-20 05:14:25', NULL),
 (8, 'Clifford Lovoson', 'HT4789505', 2, 2, 4, 'cliford@tales.com', 3, 2, 'P.O. BOX HP 1128', '$2y$10$ZI.lAFO5CNjIQ26bNVhImeO6HFooZwBuepG7zh1tIBo4JhxI1mNxi', '2020-06-20 05:14:25', NULL),
-(9, 'Clifford Lovoson', 'HT4789505', 2, 2, 4, 'cliford@tales.com', 3, 2, 'P.O. BOX HP 1128', '$2y$10$5TfKvrRzBP2XYLN26t/wiuTPrC99q/XN5uL1a4.wf3Kg7UvYhmkcm', '2020-06-20 05:14:26', NULL);
+(9, 'Clifford Lovoson', 'HT4789505', 2, 2, 4, 'cliford@tales.com', 3, 2, 'P.O. BOX HP 1128', '$2y$10$5TfKvrRzBP2XYLN26t/wiuTPrC99q/XN5uL1a4.wf3Kg7UvYhmkcm', '2020-06-20 05:14:26', NULL),
+(10, 'Lovelace Delanya', 'HT4789532', 2, 3, 6, 'lovelace@tales.com', 4, 1, 'P.O. BOX HP 1128', '$2y$10$eK.bLVNevqfVkxaqnZ0F1.r47.Ae2BRHgvxaNW/bKoe9SFP.dFlH2', '2020-06-20 22:45:47', NULL),
+(11, 'Betty Norah', 'HT4789599', 1, 1, 3, 'sefakorhom2012@gmail.com', 1, 1, 'P.O. BOX HP 1128', '$2y$10$xeH0TsAkA3MgXRRqQwgoaerlh4WggQvX1N0p6Vps0VdE/dJex/lSm', '2020-06-20 22:58:24', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_attendance`
+--
+
+CREATE TABLE `student_attendance` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `faculty_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `attendance_id` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_attendance`
+--
+
+INSERT INTO `student_attendance` (`id`, `student_id`, `faculty_id`, `course_id`, `attendance_id`, `date`) VALUES
+(4, 1, 2, 1, 1, '2020-06-20'),
+(5, 10, 2, 1, 1, '2020-06-20'),
+(6, 11, 2, 1, 1, '2020-06-20'),
+(7, 1, 2, 5, 2, '2020-06-20'),
+(8, 10, 2, 5, 2, '2020-06-20'),
+(9, 11, 2, 5, 1, '2020-06-20');
 
 -- --------------------------------------------------------
 
@@ -423,6 +452,12 @@ ALTER TABLE `students`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -508,6 +543,12 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `student_attendance`
+--
+ALTER TABLE `student_attendance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --

@@ -28,6 +28,7 @@ if(Inputs::submitType()){
       //faculty
       $_SESSION['faculty'] = $user->id;
       $_SESSION['faculty_name'] = $user->full_name;
+      $_SESSION['faculty_grade'] = $user->grade_id;
       $link->redirect('../faculty/index.php');
     }
   }

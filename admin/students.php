@@ -83,7 +83,6 @@ if(($page + 1) <= $pages) {
                             <th>Programme</th>
                             <th>Campus</th>
                             <th>Grade</th>
-                            <th>Email</th>
                             <th>Date Created</th>
                             <th>Action</th>
                         </tr>
@@ -98,7 +97,6 @@ if(($page + 1) <= $pages) {
                               <td><?php echo $student->programme; ?></td>
                               <td><?php echo $student->campus; ?></td>
                               <td><?php echo $student->grade; ?></td>
-                              <td><?php echo $student->email; ?></td>
                               <td><?php echo $date->timeAgo($student->created_at); ?></td>
                               <td>
                                 <a href="update_student.php?id=<?php echo $student->id; ?>" class="text-warning"><i class="fa fa-edit"></i></a>

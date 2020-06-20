@@ -20,7 +20,7 @@ class Login
 
     //authenticate users info
     public function authenticate($table) {
-        $query = $this->connection->prepare("SELECT id, full_name, email, password, category_id FROM $table WHERE email = ? AND account_status = ? LIMIT 1");
+        $query = $this->connection->prepare("SELECT id, full_name, grade_id, email, password, category_id FROM $table WHERE email = ? AND account_status = ? LIMIT 1");
         $account_status = 1;
         $query->bindParam(1, $this->email, PDO::PARAM_STR);
         $query->bindParam(2, $account_status, PDO::PARAM_STR);

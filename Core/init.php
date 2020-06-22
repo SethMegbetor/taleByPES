@@ -14,3 +14,4 @@ require_once dirname(__DIR__).'/Classes/Login.php';
 require_once dirname(__DIR__).'/Classes/Fetch.php';
 require_once dirname(__DIR__).'/Classes/DateFormat.php';
 require_once dirname(__DIR__).'/Classes/Functions.php';
+require_once dirname(__DIR__).'/vendor/autoload.php';

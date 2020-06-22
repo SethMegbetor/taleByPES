@@ -1,7 +1,10 @@
 <?php 
 require_once dirname(__DIR__).'/Core/init.php';
 
-if(empty($_SESSION['faculty'])) {
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+
+if(empty($_SESSION['admin'])) {
   $link->redirect('../index.php');
 }
 
@@ -9,7 +12,7 @@ $fetch_data = new Fetch($connection);
 $date = new DateFormat($connection);
 
 //pagination
-$pagination = $fetch_data->getFacultyTotalAttendance($_SESSION['faculty']);
+$pagination = $fetch_data->getTotal('student_attendance');
 $total = $pagination;
 
 $page = (int)$_GET['page'];
@@ -27,7 +30,7 @@ if(($page > $pages) && ($page > 1)) {
 
 $offset = ($page - 1) * $rows;
 
-$attendance = $fetch_data->getFcultyAttendanceTaken($_SESSION['faculty'], $rows, 0);
+$attendance = $fetch_data->getAllAttendanceTakenForAdmin($rows, $offset);
 
 //getting previous page value
 if(($page - 1) >= 1) {
@@ -46,13 +49,74 @@ if(($page + 1) <= $pages) {
 
 $courses = $fetch_data->getItemsWithNoComparison('SELECT id, course_name', 'courses');
 
+$attendance_list = $fetch_data->getAllAttendanceTakenForAdmin(100000, 0);
+
+
+//check if export button has been clicked
+if(isset($_POST["export"])) {
+  
+  //create an instance of the spreasheet class
+  $file = new Spreadsheet();
+
+  //get table header
+  $active_sheet = $file->getActiveSheet();
+
+  //set table header
+  $active_sheet->setCellValue('A1', 'Student Name');
+  $active_sheet->setCellValue('B1', 'Course');
+  $active_sheet->setCellValue('C1', 'Faculty');
+  $active_sheet->setCellValue('D1', 'Attendance Status');
+  $active_sheet->setCellValue('E1', 'Date');
+
+  //roll number
+  $count = 2;
+
+  //print values
+  foreach($attendance_list AS $row) {
+    $active_sheet->setCellValue('A' . $count, $row->student);
+    $active_sheet->setCellValue('B' . $count, $row->course);
+    $active_sheet->setCellValue('C' . $count, $row->faculty);
+    $active_sheet->setCellValue('D' . $count, $row->attendance);
+    $active_sheet->setCellValue('E' . $count, $row->date);
+
+    //increase count variable by one
+    $count = $count + 1;
+
+  }
+
+  $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($file, $_POST["file_type"]);
+
+  //create filename
+  $file_name = time() . '.' . strtolower($_POST["file_type"]);
+
+  //save file
+  $writer->save($file_name);
+
+  // force download content
+  header('Content-Type: application/x-www-form-urlencoded');
+
+  header('Content-Transfer-Encoding: Binary');
+
+  header("Content-disposition: attachment; filename=\"".$file_name."\"");
+
+  readfile($file_name);
+
+  //remove excel sheet from the working folder
+  unlink($file_name);
+
+  exit;
+}
+
+/* end file export */
+
+
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <?php include 'includes/meta.php'; ?>
-  <title>Tales - Attendance List</title>
+  <title>Tales - Attendance Report</title>
   <?php include 'includes/links.php'; ?>
 </head>
 
@@ -86,9 +150,6 @@ $courses = $fetch_data->getItemsWithNoComparison('SELECT id, course_name', 'cour
                 </div>
               </div>
             </form>
-            <div class="ml-auto p-2 bd-highlight">
-              <a href="take_attendance.php" class="btn btn-success"><i class="fa fa-check"> Take Attendance</i></a>
-            </div>
           </div>
           <div class="row">
               <div class="col-12">
@@ -102,6 +163,7 @@ $courses = $fetch_data->getItemsWithNoComparison('SELECT id, course_name', 'cour
                       <thead>
                         <th class="pl-4">Student</th>
                         <th>Course</th>
+                        <th>Faculty</th>
                         <th>Attendance Status</th>
                         <th>Date</th>
                       </thead>
@@ -110,6 +172,7 @@ $courses = $fetch_data->getItemsWithNoComparison('SELECT id, course_name', 'cour
                           <tr>
                             <td class="pl-4"><?php echo $new->student; ?></td>
                             <td><?php echo $new->course; ?></td>
+                            <td><?php echo $new->faculty; ?></td>
                             <td>
                               <?php if($new->attendance_id == 1){ ?>
                                 <button class="btn btn-success btn-sm">Present</button>
@@ -132,6 +195,25 @@ $courses = $fetch_data->getItemsWithNoComparison('SELECT id, course_name', 'cour
                         <?php endif; ?>
                       </ul>
                     </nav>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-4">
+                  <form class="pl-3" method="POST">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <select class="custom-select" name="file_type" id="inputGroupSelect05">
+                          <option value="Xlsx">Xlsx</option>
+                          <option value="Xls">Xls</option>
+                          <option value="Csv">Csv</option>
+                        </select>
+                        <div class="input-group-append">
+                          <button class="btn btn-warning" type="submit" name="export"><i class="fa fa-file-excel"></i> Export</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                   </div>
                 </div>
               </div>

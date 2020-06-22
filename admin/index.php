@@ -37,7 +37,7 @@ $departments_total = $data->getTotal('departments');
 
         var options = {
           chart: {
-            title: 'Graph View of Dashboard Items'
+            title: 'Analysis'
           }
         };
 

@@ -165,6 +165,23 @@ class Fetch
     }
 
 
+    //fetch all attendance taken for Admin
+    public function getAllAttendanceTakenForAdmin($limit, $offset){
+        $query = $this->connection->prepare("SELECT student_attendance.id, student_attendance.attendance_id, student_attendance.date, students.full_name as student, users.full_name as faculty, courses.course_name as course, attendance_status.name AS attendance FROM student_attendance JOIN students ON students.id = student_attendance.student_id JOIN users ON users.id = student_attendance.faculty_id JOIN courses ON courses.id = student_attendance.course_id JOIN attendance_status ON attendance_status.id = student_attendance.attendance_id  ORDER BY student_attendance.id DESC LIMIT $limit OFFSET $offset");
+
+        if($query->execute()) {
+            $all_results = array();
+            while($result = $query->fetch(PDO::FETCH_OBJ)) {
+                $all_results[] = $result;
+            }
+            return $all_results;
+        } else {
+            $this->error = implode(', ', $this->connection->errorInfo());
+            return false;
+        }
+    }
+
+
     
     //fetch faculty course materials
     public function getFacultyCourseMaterials($faculty_id) {
@@ -222,19 +239,39 @@ class Fetch
     }
 
 
-    //function to search
-    public function search($action, $item) {
-        $query = $this->connection->prepare("{$action}");
+    //search for attendance list (filter by date range)
+    public function searchAttendanceList($item, $faculty_id, $from, $to) {
+        $query = $this->connection->prepare("SELECT student_attendance.id, student_attendance.attendance_id, student_attendance.course_id, students.full_name AS student, courses.course_name AS course, student_attendance.date FROM student_attendance JOIN students ON students.id = student_id JOIN courses ON courses.id = student_attendance.course_id WHERE student_attendance.course_id LIKE '%$item%' AND student_attendance.faculty_id = '$faculty_id' ORDER BY student_attendance.date BETWEEN '$from' AND '$to' ");
 
-        if ($query->execute()) {
-			$all_results = array();
-			while ($result = $query->fetch(PDO::FETCH_OBJ)) {
-				$all_results[] = $result;
-			}
-			return $all_results;
-		} else {
-			$this->error = implode(', ', $this->connection->errorInfo());
-			return false;
-		}
+        if($query->execute()) {
+            $all_results = array();
+            while($result = $query->fetch(PDO::FETCH_OBJ)) {
+                $all_results[] = $result;
+            }
+            return $all_results;
+        } else {
+            $this->error = implode(', ', $this->connection->errorInfo());
+            return false;
+        }
     }
+
+
+
+    //search for attendance list (filter by date range) for admin
+    public function searchAttendanceListForAdmin($item, $from, $to) {
+        $query = $this->connection->prepare("SELECT student_attendance.id, student_attendance.attendance_id, student_attendance.course_id, students.full_name AS student, courses.course_name AS course, student_attendance.date, users.full_name AS faculty FROM student_attendance JOIN students ON students.id = student_id JOIN courses ON courses.id = student_attendance.course_id JOIN users ON users.id = student_attendance.faculty_id WHERE student_attendance.course_id LIKE '%$item%' ORDER BY student_attendance.date BETWEEN '$from' AND '$to' ");
+
+        if($query->execute()) {
+            $all_results = array();
+            while($result = $query->fetch(PDO::FETCH_OBJ)) {
+                $all_results[] = $result;
+            }
+            return $all_results;
+        } else {
+            $this->error = implode(', ', $this->connection->errorInfo());
+            return false;
+        }
+    }
+
+    
 }

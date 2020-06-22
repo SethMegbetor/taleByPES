@@ -28,7 +28,7 @@ $course_materials_total = $data->getFacultyTotalCourseMaterial($_SESSION['facult
       <div class="main-content">
         <section class="section">
           <div class="row">
-              <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                   <div class="card-icon l-bg-green">
                     <i data-feather="layers"></i>
@@ -44,7 +44,7 @@ $course_materials_total = $data->getFacultyTotalCourseMaterial($_SESSION['facult
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                   <div class="card-icon l-bg-orange">

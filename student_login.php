@@ -10,7 +10,7 @@ require_once 'Core/init.php';
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Tales - User Login</title>
+  <title>Tales - Student Login</title>
   <!-- General CSS Files -->
   <link rel="stylesheet" href="assets/css/app.min.css">
   <link rel="stylesheet" href="assets/bundles/bootstrap-social/bootstrap-social.css">
@@ -31,10 +31,10 @@ require_once 'Core/init.php';
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="card card-primary">
               <div class="card-header">
-                <h4>Faculty Login</h4>
+                <h4>Student Login</h4>
               </div>
               <div class="card-body">
-                <form method="POST" action="Submits/user_login.php" class="needs-validation" novalidate="">
+                <form method="POST" action="Submits/student_login.php" class="needs-validation" novalidate="">
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
@@ -74,7 +74,7 @@ require_once 'Core/init.php';
               </div>
             </div>
             <div class="mt-5 text-muted text-center">
-              Login as a <a href="student_login.php"> student</a>
+              Login as  <a href="index.php"> Faculty</a>
             </div>
           </div>
         </div>

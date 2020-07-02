@@ -200,6 +200,23 @@ class Fetch
     }
 
 
+    //fetch course materials for students based on their grade
+    public function getCourseMaterialsForStudent($student_grade_id) {
+        $query = $this->connection->prepare("SELECT course_materials.id, course_materials.title, course_materials.course_id, course_materials.semester_id, course_materials.academic_id, course_materials.file, course_materials.faculty_id, course_materials.created_at, courses.course_name AS course FROM course_materials JOIN courses ON courses.id = course_materials.course_id WHERE course_materials.faculty_grade_id = '$student_grade_id' GROUP BY course_materials.id, course_materials.course_id");
+
+        if($query->execute()) {
+            $all_results = array();
+            while($result = $query->fetch(PDO::FETCH_OBJ)) {
+                $all_results[] = $result;
+            }
+            return $all_results;
+        } else {
+            $this->error = implode(', ', $this->connection->errorInfo());
+            return false;
+        }
+    }
+
+
     //fetch total course material for a faculty
     public function getFacultyTotalCourseMaterial($faculty_id){
         $query = $this->connection->prepare("SELECT COUNT(id) AS total FROM course_materials WHERE course_materials.faculty_id = $faculty_id");

@@ -4,7 +4,7 @@ $database = new Database($connection);
 $link = new Functions();
 
 if(Inputs::submitType()) {
-  $admin_id = intval(Inputs::assignValue('admin_id'));
+  $student_id = intval(Inputs::assignValue('student_id'));
   $faculty_id = intval(Inputs::assignValue('faculty_id'));
   $icon1 = intval(Inputs::assignValue('icon1'));
   $icon2 = intval(Inputs::assignValue('icon2'));
@@ -15,8 +15,8 @@ if(Inputs::submitType()) {
   $created_at = date('Y-m-d H:i:s');
 
   //insert values
-  $database->insert('admin_evaluate_faculty', array(
-    'admin_id' => $admin_id,
+  $database->insert('evaluation', array(
+    'student_id' => $student_id,
     'faculty_id' => $faculty_id,
     'q1' => $icon1,
     'q2' => $icon2,
@@ -31,7 +31,7 @@ if(Inputs::submitType()) {
   $_SESSION['success'] = 'Your Evaluation has been recorded successfully';
 
   //redirect
-  $link->redirect('../admin/evaluate.php');
+  $link->redirect('../student/evaluate.php');
 
 } else {
   die('Requested Page not found');

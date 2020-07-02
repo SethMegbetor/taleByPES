@@ -5,6 +5,7 @@ $return = new Functions();
 
 if(Inputs::submitType()){
   $id = intval(Inputs::assignValue('id'));
+  $faculty_grade_id = intval(Inputs::assignValue('faculty_grade_id'));
   $title = Inputs::assignValue('title');
   $course_id = intval(Inputs::assignValue('course_id'));
   $semester_id = intval(Inputs::assignValue('semester_id'));
@@ -48,6 +49,7 @@ if(Inputs::submitType()){
     'academic_id' => $academic_id,
     'file' => $file_name,
     'faculty_id' => $id,
+    'faculty_grade_id' => $faculty_grade_id,
     'created_at' => $created_at
   ));
 

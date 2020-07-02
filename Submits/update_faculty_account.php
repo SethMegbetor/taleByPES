@@ -17,20 +17,20 @@ if(Inputs::submitType()) {
     $duplicate_email = $verify->getSingleData('SELECT id', 'users', array('email', '=', $email));
     if($duplicate_email->id != $id && !empty($duplicate_email)){
         $_SESSION['error'] = 'Your new email: '.$email. 'already exists';
-        $link->redirect('../admin/profile.php');
+        $link->redirect('../faculty/profile.php');
     } else {
         //check if existing password matches the old password taken from the user
         $check_old_password = $verify->getSingleData('SELECT password', 'users', array('id', '=', $id));
         if(false === password_verify($old_password, $check_old_password->password)) {
             $_SESSION['error'] = 'Invalid old password';
-            $link->redirect('../admin/profile.php');
+            $link->redirect('../faculty/profile.php');
         } else {
             //check if password matches and proceed
             if($password === $confirm_password){
                 //encrypt password
                 $password = password_hash($password, PASSWORD_BCRYPT);
 
-                //update field values
+                //populate the database
                 $database->update('users', $id, array(
                     'full_name' => $full_name,
                     'email' => $email,
@@ -41,7 +41,7 @@ if(Inputs::submitType()) {
                 //success message
                 $_SESSION['success'] = 'Account update successfully.';
                 //redirect
-                $link->redirect('../admin/profile.php');
+                $link->redirect('../faculty/profile.php');
             }
         }
     }

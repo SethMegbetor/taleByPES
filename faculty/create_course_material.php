@@ -1,7 +1,7 @@
 <?php 
 require_once dirname(__DIR__).'/Core/init.php';
 
-if(empty($_SESSION['faculty'])) {
+if(empty($_SESSION['faculty']) && ($_SESSION['faculty_grade'])) {
   $link->redirect('../index.php');
 }
 
@@ -34,11 +34,12 @@ $courses = $fetch_data->getItemsWithNoComparison('SELECT id, course_name', 'cour
               <div class="col-10">
               <div class="card">
                 <div class="card-header">
-                  <h4>All Course Materials</h4>
+                  <h4>Add Course Material</h4>
                 </div>
                 <div class="card-body p-0">
                   <form data-toggle="validator" role="form" action="../Submits/create_course_material1.php" enctype="multipart/form-data" method="POST">
                   <input type="hidden" name="id" value="<?php echo $_SESSION['faculty']; ?>" required>
+                  <input type="hidden" name="faculty_grade_id" value="<?php echo $_SESSION['faculty_grade']; ?>" required>
                     <div class="form-group row mb-4">
                       <label for="title" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
                       <div class="col-sm-12 col-md-7">

@@ -129,6 +129,20 @@ $grades = $fetch_data->getItemsWithNoComparison('SELECT id, name', 'grades');
                       </div>
                     </div>
                     <div class="form-group row mb-4">
+                      <label for="password" class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
+                      <div class="col-sm-12 col-md-7">
+                        <input type="password" name="password" data-minlength="6" id="password" class="form-control" required>
+                        <div class="help-block with-errors text-danger">Minimum of 6 characters</div>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Repeat Password</label>
+                      <div class="col-sm-12 col-md-7">
+                        <input type="password" name="confirm_password" id="confirm_password" data-match="#password" data-match-error="Whoops, these don't match" class="form-control" required>
+                        <div class="help-block with-errors text-danger"></div>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                       <div class="col-sm-12 col-md-7">
                         <button type="submit" class="btn btn-primary">Create</button>

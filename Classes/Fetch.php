@@ -290,5 +290,19 @@ class Fetch
         }
     }
 
+
+    // fetch total attendance for analysis
+    public function getTotalAttendanceForAnalysis($value) {
+        $query = $this->connection->prepare("SELECT COUNT(id) AS total FROM student_attendance WHERE attendance_id = $value");
+
+        if($query->execute()) {
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            return $result->total;
+        } else {
+            $this->error = implode(', ', $this->connection->errorInfo());
+            return false;
+        }
+    }
+
     
 }

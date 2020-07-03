@@ -109,6 +109,9 @@ if(isset($_POST["export"])) {
 
 /* end file export */
 
+$present_total = $fetch_data->getTotalAttendanceForAnalysis(1);
+$absent_total = $fetch_data->getTotalAttendanceForAnalysis(2);
+
 
 
 ?>
@@ -118,6 +121,26 @@ if(isset($_POST["export"])) {
   <?php include 'includes/meta.php'; ?>
   <title>Tales - Attendance Report</title>
   <?php include 'includes/links.php'; ?>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Attendance', 'Analytics'],
+          ['Present',     <?php echo $present_total; ?>],
+          ['Absent',      <?php echo $absent_total; ?>]
+        ]);
+
+        var options = {
+          title: 'Overall Attendance Analytics',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
 </head>
 
 <body>
@@ -150,6 +173,12 @@ if(isset($_POST["export"])) {
                 </div>
               </div>
             </form>
+          </div>
+          <!-- analytics -->
+          <div class="row mb-5">
+            <div class="col-12">
+              <div id="piechart_3d" style="width: 1000px; height: 400px;"></div>
+            </div>
           </div>
           <div class="row">
               <div class="col-12">

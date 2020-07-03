@@ -8,4 +8,4 @@ session_unset();
 
 session_destroy();
 
-$link->redirect('../index.php');
+$link->redirect('../student_login.php');

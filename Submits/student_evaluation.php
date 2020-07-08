@@ -5,7 +5,7 @@ $link = new Functions();
 
 if(Inputs::submitType()) {
   $student_id = intval(Inputs::assignValue('student_id'));
-  $faculty_id = intval(Inputs::assignValue('faculty_id'));
+  $course_id = intval(Inputs::assignValue('course_id'));
   $icon1 = intval(Inputs::assignValue('icon1'));
   $icon2 = intval(Inputs::assignValue('icon2'));
   $icon3 = intval(Inputs::assignValue('icon3'));
@@ -17,7 +17,7 @@ if(Inputs::submitType()) {
   //insert values
   $database->insert('evaluation', array(
     'student_id' => $student_id,
-    'faculty_id' => $faculty_id,
+    'course_id' => $course_id,
     'q1' => $icon1,
     'q2' => $icon2,
     'q3' => $icon3,

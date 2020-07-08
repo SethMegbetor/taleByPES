@@ -7,7 +7,7 @@ if(empty($_SESSION['student'])) {
 
 $fetch_data = new Fetch($connection);
 
-$faculty = $fetch_data->getItemsWithNoComparison('SELECT id, full_name, category_id', 'users');
+$courses = $fetch_data->getItemsWithNoComparison('SELECT id, course_name', 'courses');
 
 ?>
 <!DOCTYPE html>
@@ -38,13 +38,13 @@ $faculty = $fetch_data->getItemsWithNoComparison('SELECT id, full_name, category
                   <form data-toggle="validator" role="form" action="../Submits/student_evaluation.php" method="POST">
                   <input type="hidden" name="student_id" value="<?php echo $_SESSION['student']; ?>">
                     <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Faculty</label>
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Course</label>
                       <div class="col-sm-12 col-md-7">
-                        <select name="faculty_id" id="faculty_id" data-error="Bruh, select an item from the option" class="form-control" required>
-                            <option value="" class="selected">Select Faculty</option>
-                            <?php foreach($faculty as $user): ?>
+                        <select name="course_id" id="course_id" data-error="Select an item from the option" class="form-control" required>
+                            <option value="" class="selected">-- Choose course --</option>
+                            <?php foreach($courses as $user): ?>
                               <?php if($user->category_id != 1):?>
-                                <option value="<?php echo $user->id; ?>"><?php echo $user->full_name; ?></option>
+                                <option value="<?php echo $user->id; ?>"><?php echo $user->course_name; ?></option>
                               <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
@@ -53,205 +53,205 @@ $faculty = $fetch_data->getItemsWithNoComparison('SELECT id, full_name, category
                     </div>
                     <div class="form-group row mb-4">
                       <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                      <div class="col-sm-12 col-md-7">
-                        <div class="section-title">How many peoples were you bi?</div>
+                      <div class="col-md-9 col-md-7">
+                        <div class="section-title">Lecture presented learning objectives of the course clearly</div>
                           <div class="pretty p-icon p-round">
                             <input type="radio" name="icon1" value="1" />
                             <div class="state p-primary-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dollar</label>
+                              <label>Strongly disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
                             <input type="radio" name="icon1" value="1" />
                             <div class="state p-success-o">
                               <i class="icon material-icons">done</i>
-                              <label>Euro</label>
+                              <label>Disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
                             <input type="radio" name="icon1" />
                             <div class="state p-info-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dinar</label>
+                              <label>Neutral</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
                             <input type="radio" name="icon1" value="1" />
                             <div class="state p-warning-o">
                               <i class="icon material-icons">done</i>
-                              <label>Pound</label>
+                              <label>Agree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
                             <input type="radio" name="icon1" value="1" />
                             <div class="state p-danger-o">
                               <i class="icon material-icons">done</i>
-                              <label>Rupee</label>
+                              <label>Strongly agree</label>
                             </div>
                           </div>
                       </div>
                     </div>
                     <div class="form-group row mb-4">
                       <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                      <div class="col-sm-12 col-md-7">
-                        <div class="section-title">How many peoples were you bi?</div>
+                      <div class="col-md-9 col-md-7">
+                        <div class="section-title">Lecture encouraged and provided apportunity for students to ask questions</div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon2" value="2" />
+                            <input type="radio" name="icon7" value="7" />
                             <div class="state p-primary-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dollar</label>
+                              <label>Strongly disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon2" value="2" />
+                            <input type="radio" name="icon7" value="7" />
                             <div class="state p-success-o">
                               <i class="icon material-icons">done</i>
-                              <label>Euro</label>
+                              <label>Disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon2" value="2" />
+                            <input type="radio" name="icon7" value="7" />
                             <div class="state p-info-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dinar</label>
+                              <label>Neutral</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon2" value="2" />
+                            <input type="radio" name="icon7" value="7" />
                             <div class="state p-warning-o">
                               <i class="icon material-icons">done</i>
-                              <label>Pound</label>
+                              <label>Agree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon2" value="2" />
+                            <input type="radio" name="icon7" value="7" />
                             <div class="state p-danger-o">
                               <i class="icon material-icons">done</i>
-                              <label>Rupee</label>
+                              <label>Strongly agree</label>
                             </div>
                           </div>
                       </div>
                     </div>
                     <div class="form-group row mb-4">
                       <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                      <div class="col-sm-12 col-md-7">
-                        <div class="section-title">How many peoples were you bi?</div>
+                      <div class="col-md-9 col-md-7">
+                        <div class="section-title">Online teaching environment felt like a welcoming place to express my ideas</div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon3" value="3" />
+                            <input type="radio" name="icon11" value="11" />
                             <div class="state p-primary-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dollar</label>
+                              <label>Strongly disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon3" value="3" />
+                            <input type="radio" name="icon11" value="11" />
                             <div class="state p-success-o">
                               <i class="icon material-icons">done</i>
-                              <label>Euro</label>
+                              <label>Disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon3" value="3" />
+                            <input type="radio" name="icon11" value="11" />
                             <div class="state p-info-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dinar</label>
+                              <label>Neutral</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon3" value="3" />
+                            <input type="radio" name="icon11" value="11" />
                             <div class="state p-warning-o">
                               <i class="icon material-icons">done</i>
-                              <label>Pound</label>
+                              <label>Agree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon3" value="3" />
+                            <input type="radio" name="icon11" value="11" />
                             <div class="state p-danger-o">
                               <i class="icon material-icons">done</i>
-                              <label>Rupee</label>
+                              <label>Strongly agree</label>
                             </div>
                           </div>
                       </div>
                     </div>
                     <div class="form-group row mb-4">
                       <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                      <div class="col-sm-12 col-md-7">
-                        <div class="section-title">How many peoples were you bi?</div>
+                      <div class="col-md-9 col-md-7">
+                        <div class="section-title">Lecturer provided a list of current reading and recommended textbooks</div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon4" value="4" />
+                            <input type="radio" name="icon2" value="2" />
                             <div class="state p-primary-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dollar</label>
+                              <label>Strongly disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon4" value="4" />
+                            <input type="radio" name="icon2" value="2" />
                             <div class="state p-success-o">
                               <i class="icon material-icons">done</i>
-                              <label>Euro</label>
+                              <label>Disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon4" value="4" />
+                            <input type="radio" name="icon2" value="2" />
                             <div class="state p-info-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dinar</label>
+                              <label>Neutral</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon4" value="4" />
+                            <input type="radio" name="icon2" value="2" />
                             <div class="state p-warning-o">
                               <i class="icon material-icons">done</i>
-                              <label>Pound</label>
+                              <label>Agree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon4" value="4" />
+                            <input type="radio" name="icon2" value="2" />
                             <div class="state p-danger-o">
                               <i class="icon material-icons">done</i>
-                              <label>Rupee</label>
+                              <label>Strongly Agree</label>
                             </div>
                           </div>
                       </div>
                     </div>
                     <div class="form-group row mb-4">
                       <label for="" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                      <div class="col-sm-12 col-md-7">
-                        <div class="section-title">How many peoples were you bi?</div>
+                      <div class="col-md-9 col-md-7">
+                        <div class="section-title">Lecturer provided links to relevant web-based technology resources</div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon5" value="5" />
+                            <input type="radio" name="icon3" value="3" />
                             <div class="state p-primary-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dollar</label>
+                              <label>Strongly disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon5" value="5" />
+                            <input type="radio" name="icon3" value="3" />
                             <div class="state p-success-o">
                               <i class="icon material-icons">done</i>
-                              <label>Euro</label>
+                              <label>Disagree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon5" value="5" />
+                            <input type="radio" name="icon3" value="3" />
                             <div class="state p-info-o">
                               <i class="icon material-icons">done</i>
-                              <label>Dinar</label>
+                              <label>Neutral</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon5" value="5" />
+                            <input type="radio" name="icon3" value="3" />
                             <div class="state p-warning-o">
                               <i class="icon material-icons">done</i>
-                              <label>Pound</label>
+                              <label>Agree</label>
                             </div>
                           </div>
                           <div class="pretty p-icon p-round">
-                            <input type="radio" name="icon5" value="5" />
+                            <input type="radio" name="icon3" value="3" />
                             <div class="state p-danger-o">
                               <i class="icon material-icons">done</i>
-                              <label>Rupee</label>
+                              <label>Strongly agree</label>
                             </div>
                           </div>
                       </div>

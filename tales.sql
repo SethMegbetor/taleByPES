@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2020 at 12:08 AM
+-- Generation Time: Jul 06, 2020 at 08:42 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -37,8 +37,7 @@ CREATE TABLE `academic_year` (
 --
 
 INSERT INTO `academic_year` (`id`, `year`) VALUES
-(1, '2019 / 2020'),
-(2, '2020 / 2021');
+(1, '2019 / 2020');
 
 -- --------------------------------------------------------
 
@@ -62,30 +61,21 @@ INSERT INTO `account_status` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin_evaluate_faculty`
+-- Table structure for table `attendance_status`
 --
 
-CREATE TABLE `admin_evaluate_faculty` (
+CREATE TABLE `attendance_status` (
   `id` int(11) NOT NULL,
-  `admin_id` int(11) NOT NULL,
-  `faculty_id` int(11) NOT NULL,
-  `q1` int(11) NOT NULL,
-  `q2` int(11) NOT NULL,
-  `q3` int(11) NOT NULL,
-  `q4` int(11) NOT NULL,
-  `q5` int(11) NOT NULL,
-  `comments` text DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL
+  `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `admin_evaluate_faculty`
+-- Dumping data for table `attendance_status`
 --
 
-INSERT INTO `admin_evaluate_faculty` (`id`, `admin_id`, `faculty_id`, `q1`, `q2`, `q3`, `q4`, `q5`, `comments`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, 0, 0, 0, 0, 0, 'Go fuck yourself', '2020-06-16 03:46:17', NULL),
-(2, 1, 2, 1, 2, 3, 4, 5, 'Go fuck yourself ', '2020-06-16 04:16:08', NULL);
+INSERT INTO `attendance_status` (`id`, `name`) VALUES
+(1, 'Present'),
+(2, 'Absent');
 
 -- --------------------------------------------------------
 
@@ -148,6 +138,7 @@ CREATE TABLE `course_materials` (
   `academic_id` int(11) NOT NULL,
   `file` text NOT NULL,
   `faculty_id` int(11) NOT NULL,
+  `faculty_grade_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -156,9 +147,8 @@ CREATE TABLE `course_materials` (
 -- Dumping data for table `course_materials`
 --
 
-INSERT INTO `course_materials` (`id`, `title`, `course_id`, `semester_id`, `academic_id`, `file`, `faculty_id`, `created_at`, `updated_at`) VALUES
-(1, 'Research ', 7, 1, 1, 'd41d8cd98f00b204e9800998ecf8427e.docx', 2, '2020-06-17 05:46:41', NULL),
-(2, 'Israelites and Edomite encounter', 3, 1, 1, '0144712dd81be0c3d9724f5e56ce6685.docx', 2, '2020-06-17 23:59:39', NULL);
+INSERT INTO `course_materials` (`id`, `title`, `course_id`, `semester_id`, `academic_id`, `file`, `faculty_id`, `faculty_grade_id`, `created_at`, `updated_at`) VALUES
+(4, 'Israelites and Edomite encounter', 3, 1, 1, 'sms and email write up.docx', 2, 1, '2020-06-28 00:18:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -178,6 +168,35 @@ CREATE TABLE `departments` (
 INSERT INTO `departments` (`id`, `name`) VALUES
 (1, 'Faculty of Engineering '),
 (2, 'Faculty of IT Business ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `evaluation`
+--
+
+CREATE TABLE `evaluation` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  `q1` int(11) NOT NULL,
+  `q2` int(11) NOT NULL,
+  `q3` int(11) NOT NULL,
+  `q4` int(11) NOT NULL,
+  `q5` int(11) NOT NULL,
+  `comments` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `evaluation`
+--
+
+INSERT INTO `evaluation` (`id`, `student_id`, `course_id`, `q1`, `q2`, `q3`, `q4`, `q5`, `comments`, `created_at`, `updated_at`) VALUES
+(1, 13, 2, 1, 2, 3, 4, 5, 'hello world', '2020-06-28 22:31:00', NULL),
+(2, 13, 2, 1, 2, 3, 4, 5, 'tekdlfkfokdfofid', '2020-07-07 01:49:27', NULL),
+(3, 13, 3, 1, 2, 3, 4, 5, 'fggfgf', '2020-07-07 02:13:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -298,7 +317,9 @@ INSERT INTO `students` (`id`, `full_name`, `index_no`, `department_id`, `level_i
 (8, 'Clifford Lovoson', 'HT4789505', 2, 2, 4, 'cliford@tales.com', 3, 2, 'P.O. BOX HP 1128', '$2y$10$ZI.lAFO5CNjIQ26bNVhImeO6HFooZwBuepG7zh1tIBo4JhxI1mNxi', '2020-06-20 05:14:25', NULL),
 (9, 'Clifford Lovoson', 'HT4789505', 2, 2, 4, 'cliford@tales.com', 3, 2, 'P.O. BOX HP 1128', '$2y$10$5TfKvrRzBP2XYLN26t/wiuTPrC99q/XN5uL1a4.wf3Kg7UvYhmkcm', '2020-06-20 05:14:26', NULL),
 (10, 'Lovelace Delanya', 'HT4789532', 2, 3, 6, 'lovelace@tales.com', 4, 1, 'P.O. BOX HP 1128', '$2y$10$eK.bLVNevqfVkxaqnZ0F1.r47.Ae2BRHgvxaNW/bKoe9SFP.dFlH2', '2020-06-20 22:45:47', NULL),
-(11, 'Betty Norah', 'HT4789599', 1, 1, 3, 'sefakorhom2012@gmail.com', 1, 1, 'P.O. BOX HP 1128', '$2y$10$xeH0TsAkA3MgXRRqQwgoaerlh4WggQvX1N0p6Vps0VdE/dJex/lSm', '2020-06-20 22:58:24', NULL);
+(11, 'Betty Norah', 'HT4789599', 1, 1, 3, 'sefakorhom2012@gmail.com', 1, 1, 'P.O. BOX HP 1128', '$2y$10$xeH0TsAkA3MgXRRqQwgoaerlh4WggQvX1N0p6Vps0VdE/dJex/lSm', '2020-06-20 22:58:24', NULL),
+(12, 'Raphael Sefakor  Adinkrah', 'HT4789503', 1, 1, 3, 'sefakorhom2012@gmail.com', 2, 2, 'P.O. BOX HP 1128', '$2y$10$lKi0xUKR8lGOepXuxp4Gee2EdWiC.XeH9ZFdihBGVkxIZoWFJOuMO', '2020-06-27 11:43:31', NULL),
+(13, 'Patience Adinkrah', 'HT4789100', 2, 1, 4, 'HT4789100@tales.com', 2, 1, 'P.O. BOX HP 1128', '$2y$10$MQNhC.kO8r6rrgw2P5KXG.bUME2ErGrbhRzdQxasK6hJYBTpBNlle', '2020-06-27 23:28:58', '2020-06-28 02:49:17');
 
 -- --------------------------------------------------------
 
@@ -352,7 +373,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `full_name`, `department_id`, `category_id`, `grade_id`, `email`, `account_status`, `password`, `created_at`, `updated_at`) VALUES
 (1, 'Seth Megbetor', 1, 1, 1, 'seth@tales.com', 1, '$2y$10$W7IGDuOIKFUiPDKMdZ3K6uEWALtm6XRGmyqIkU.J6jklEejk1Znvm', '2020-06-11 23:16:28', '2020-06-15 18:24:09'),
-(2, 'Patience Baniba', 2, 2, 1, 'pat@tales.com', 1, '$2y$10$o4WBqQgiBOF8mFo3hlbW3.GNaoSBUczV1SdmX8AZ6V7o/iJHupRH2', '2020-06-12 04:51:39', NULL),
+(2, 'Patience Baniba', 2, 2, 1, 'pat@tales.com', 1, '$2y$10$Btvrwkt.SFKcKNSjM39v7u0wy/Q/hxnUdQyDFCTNcxUcolbSRjaTa', '2020-06-12 04:51:39', '2020-06-27 11:14:01'),
 (4, 'Raphael Sefakor', 1, 2, 2, 'sefakor@tales.com', 1, '$2y$10$HOgEJmwklPa6oaiNS3kPBeqg9W0hyxhtr93A6o4pfu/6NLoe.2VrC', '2020-06-19 20:54:38', NULL),
 (5, 'Lyeon Kings', 1, 2, 4, 'lyeon@tales.com', 2, '$2y$10$oEe7w4n3.lGTgU21qDU2SuzwiKVgpmI30HkMuRB2REDO0P0iop7HC', '2020-06-20 01:36:41', '2020-06-20 02:19:05');
 
@@ -392,9 +413,9 @@ ALTER TABLE `account_status`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `admin_evaluate_faculty`
+-- Indexes for table `attendance_status`
 --
-ALTER TABLE `admin_evaluate_faculty`
+ALTER TABLE `attendance_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -419,6 +440,12 @@ ALTER TABLE `course_materials`
 -- Indexes for table `departments`
 --
 ALTER TABLE `departments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `evaluation`
+--
+ALTER TABLE `evaluation`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -486,9 +513,9 @@ ALTER TABLE `account_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `admin_evaluate_faculty`
+-- AUTO_INCREMENT for table `attendance_status`
 --
-ALTER TABLE `admin_evaluate_faculty`
+ALTER TABLE `attendance_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -507,13 +534,19 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `course_materials`
 --
 ALTER TABLE `course_materials`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `evaluation`
+--
+ALTER TABLE `evaluation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `grades`
@@ -543,7 +576,7 @@ ALTER TABLE `semester`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `student_attendance`

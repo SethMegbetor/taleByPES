@@ -1,0 +1,5 @@
+admin: asiedu@tales.com
+faculty: faculty@tales.com
+student: ernest@tales.com
+
+password: 12345678

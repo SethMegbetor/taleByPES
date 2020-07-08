@@ -1,8 +1,8 @@
 <footer class="main-footer">
     <div class="footer-left">
-        Developed by: <a href="https://www.github.com/sefakor20"> Raphael Sefakor Adinkrah</a></a>
+        talesByPES
     </div>
     <div class="footer-right">
-        Project for: Seth Megbetor
+        Project for: Final Year
     </div>
 </footer>
